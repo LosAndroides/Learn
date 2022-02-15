@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id "io.gitlab.arturbosch.detekt" version "$detekt_version"
 }
 
 android {
@@ -45,6 +46,12 @@ android {
     }
 }
 
+detekt {
+    toolVersion = detekt_version
+    buildUponDefaultConfig = true
+    config = files("$rootDir/config/detekt/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -58,4 +65,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+}
+
+tasks.named("detekt").configure {
+    reports {
+        html.required.set(true) // observe findings in your browser with structure and code snippets
+        xml.required.set(false) // checkstyle like format mainly for integrations like Jenkins
+        txt.required.set(false) // similar to the console output, contains issue signature to manually edit baseline files
+        sarif.required.set(false) // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with Github Code Scanning
+    }
 }
