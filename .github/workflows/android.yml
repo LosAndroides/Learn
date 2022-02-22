@@ -26,7 +26,7 @@ jobs:
       run: ./gradlew build
 
     - name: Unit tests
-      run: ./gradlew test
+      run: ./gradlew testDebugUnitTest
       
     - name: Detekt validation
       run: ./gradlew detekt
