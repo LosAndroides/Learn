@@ -1,0 +1,26 @@
+subprojects {
+    apply plugin: "io.gitlab.arturbosch.detekt"
+
+    detekt {
+        toolVersion = detekt_version
+        buildUponDefaultConfig = true
+        config = files("$rootDir/config/detekt/detekt.yml")
+    }
+
+    tasks.named("detekt").configure {
+        reports {
+            html.required.set(true)
+            xml.required.set(false)
+            txt.required.set(false)
+            sarif.required.set(false)
+        }
+    }
+
+    afterEvaluate {
+        // we don't want to run the detekt task in every build task to don't impact in the building time. (check dependsOn build)
+        tasks.named("check").configure {
+            dependsOn = dependsOn.findAll { it.name != 'detekt' }
+        }
+    }
+}
+
