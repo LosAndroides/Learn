@@ -1,4 +1,4 @@
-package com.losandroides.learn
+package com.losandroides.learn.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
