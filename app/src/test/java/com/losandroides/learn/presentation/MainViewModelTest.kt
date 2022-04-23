@@ -1,5 +1,6 @@
 package com.losandroides.learn.presentation
 
+import arrow.core.right
 import com.losandroides.learn.domain.ItemsUseCase
 import com.losandroides.learn.domain.model.Item
 import com.losandroides.learn.framework.coVerifyOnce
@@ -22,7 +23,7 @@ class MainViewModelTest {
     fun `GIVEN some items WHEN MainViewModel is initialized THEN ItemsUseCase is called`() =
         runTest(testDispatcher) {
             val items = buildItems()
-            coEvery { itemsUseCase() } returns items
+            coEvery { itemsUseCase() } returns items.right()
 
             val viewModel = buildMainViewModel()
             runCurrent()

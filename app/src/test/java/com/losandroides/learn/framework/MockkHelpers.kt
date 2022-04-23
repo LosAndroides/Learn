@@ -12,3 +12,10 @@ fun coVerifyOnce(
     exactly = 1,
     verifyBlock = verifyBlock
 )
+
+fun coVerifyNever(
+    verifyBlock: suspend MockKVerificationScope.() -> Unit
+) = coVerify(
+    exactly = 0,
+    verifyBlock = verifyBlock
+)

@@ -27,12 +27,19 @@ class MainViewModel @Inject constructor(
 
     private fun getItems() {
         viewModelScope.launch(dispatcher) {
-            val items = itemsUseCase()
-            _viewState.value = ViewState.Content(items)
+            itemsUseCase()
+                .fold(
+                    {
+                        _viewState.value = ViewState.Error
+                    },
+                    { items ->
+                        _viewState.value = ViewState.Content(items)
+                    })
         }
     }
 
     sealed class ViewState {
+        object Error : ViewState()
         data class Content(val items: List<Item> = emptyList()) : ViewState()
     }
 }
