@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.losandroides.learn.R
 import com.losandroides.learn.databinding.FragmentProvisionalMainBinding
 import com.losandroides.learn.domain.model.Item
+import com.losandroides.learn.framework.toast
 import com.losandroides.learn.presentation.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -59,8 +61,13 @@ class ProvisionalMainFragment : Fragment() {
 
     private fun render(viewState: MainViewModel.ViewState) {
         when (viewState) {
+            is MainViewModel.ViewState.Error -> showError()
             is MainViewModel.ViewState.Content -> showContent(viewState.items)
         }
+    }
+
+    private fun showError() {
+        toast(R.string.error_fetching_data)
     }
 
     private fun showContent(items: List<Item>) {

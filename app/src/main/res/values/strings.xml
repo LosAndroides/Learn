@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Los androides</string>
+    <string name="error_fetching_data">There was an error fetching data.\nPlease, try again later</string>
 </resources>
