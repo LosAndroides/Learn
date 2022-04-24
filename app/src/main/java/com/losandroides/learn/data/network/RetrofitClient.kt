@@ -1,5 +1,8 @@
 package com.losandroides.learn.data.network
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.losandroides.learn.BuildConfig
 import com.losandroides.learn.data.network.item.ItemService
 import okhttp3.Interceptor
@@ -9,12 +12,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
-class RetrofitClient {
+class RetrofitClient(private val appContext: Context) {
 
     companion object {
         private const val BASE_URL = "https://gist.githubusercontent.com/soygabimoreno/" +
                 "5a384e6f56499952467c3f9aed332713/raw/9c53f9770f953c600b29541bb7bc412f0c0426ba/"
         private const val HEADER_ACCEPT_LANGUAGE = "Accept-Language"
+        private const val MAX_CONTENT_LENGTH_CHUCKER_PARAM = 250000L
     }
 
     val itemService: ItemService by lazy {
@@ -33,6 +37,7 @@ class RetrofitClient {
         return OkHttpClient.Builder()
             .addInterceptor(getHttpLoggingInterceptor())
             .addInterceptor(getHeaderInterceptor())
+            .addInterceptor(getChuckerInterceptor())
             .build()
     }
 
@@ -57,4 +62,12 @@ class RetrofitClient {
             }
         }
     }
+
+    private fun getChuckerInterceptor(): ChuckerInterceptor =
+        ChuckerInterceptor.Builder(appContext)
+            .collector(ChuckerCollector(appContext))
+            .maxContentLength(MAX_CONTENT_LENGTH_CHUCKER_PARAM)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
 }

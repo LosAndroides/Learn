@@ -83,6 +83,9 @@ dependencies {
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
+
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     testImplementation 'junit:junit:4.13.2'
