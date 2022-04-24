@@ -1,5 +1,8 @@
 package com.losandroides.learn.data.network
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.losandroides.learn.BuildConfig
 import com.losandroides.learn.data.network.item.ItemService
 import okhttp3.Interceptor
@@ -9,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
-class RetrofitClient {
+class RetrofitClient(private val appContext: Context) {
 
     companion object {
         private const val BASE_URL = "https://gist.githubusercontent.com/soygabimoreno/" +
@@ -33,6 +36,7 @@ class RetrofitClient {
         return OkHttpClient.Builder()
             .addInterceptor(getHttpLoggingInterceptor())
             .addInterceptor(getHeaderInterceptor())
+            .addInterceptor(getChuckerInterceptor())
             .build()
     }
 
@@ -57,4 +61,12 @@ class RetrofitClient {
             }
         }
     }
+
+    private fun getChuckerInterceptor(): ChuckerInterceptor =
+        ChuckerInterceptor.Builder(appContext)
+            .collector(ChuckerCollector(appContext))
+            .maxContentLength(250000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(false)
+            .build()
 }
