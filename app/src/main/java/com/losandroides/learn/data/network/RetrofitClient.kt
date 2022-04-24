@@ -18,6 +18,7 @@ class RetrofitClient(private val appContext: Context) {
         private const val BASE_URL = "https://gist.githubusercontent.com/soygabimoreno/" +
                 "5a384e6f56499952467c3f9aed332713/raw/9c53f9770f953c600b29541bb7bc412f0c0426ba/"
         private const val HEADER_ACCEPT_LANGUAGE = "Accept-Language"
+        private const val MAX_CONTENT_LENGTH_CHUCKER_PARAM = 250000L
     }
 
     val itemService: ItemService by lazy {
@@ -65,7 +66,7 @@ class RetrofitClient(private val appContext: Context) {
     private fun getChuckerInterceptor(): ChuckerInterceptor =
         ChuckerInterceptor.Builder(appContext)
             .collector(ChuckerCollector(appContext))
-            .maxContentLength(250000L)
+            .maxContentLength(MAX_CONTENT_LENGTH_CHUCKER_PARAM)
             .redactHeaders(emptySet())
             .alwaysReadResponseBody(false)
             .build()
