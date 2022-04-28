@@ -13,7 +13,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -34,10 +33,7 @@ class MainProvidesModule {
 
     @Provides
     fun provideLocalPointsDataSource(database: ItemDatabase): LocalItemDatasource =
-        DefaultLocalItemDatasource(
-            database,
-            Dispatchers.IO
-        )
+        DefaultLocalItemDatasource(database)
 
     @Provides
     fun provideRemoteItemDatasource(itemService: ItemService): RemoteItemDatasource =
