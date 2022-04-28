@@ -8,11 +8,11 @@ import androidx.room.Query
 interface ItemDatabaseModelDao {
 
     @Query("SELECT * FROM ItemDatabaseModel")
-    fun getAllItems(): List<ItemDatabaseModel>
+    suspend fun getAllItems(): List<ItemDatabaseModel>
 
     @Query("SELECT COUNT(title) FROM ItemDatabaseModel")
-    fun itemsCount(): Int
+    suspend fun itemsCount(): Int
 
     @Insert
-    fun insertItems(items: List<ItemDatabaseModel>)
+    suspend fun insertItems(items: List<ItemDatabaseModel>)
 }
