@@ -24,3 +24,20 @@ subprojects {
     }
 }
 
+task copyDetektPrePushScript() {
+    group = "tools"
+    doLast {
+        def origin = new File("${project.rootDir}/gradle-scripts/", "pre-push")
+        def targetPath = "${project.rootDir}/.git/hooks/"
+
+        if (!origin.exists()) {
+            throw new GradleException("We can't find the origin pre-push file")
+        } else {
+            copy {
+                from origin
+                into targetPath
+            }
+            println "Copying \"${origin.name}\" to the .git/hook/ folder"
+        }
+    }
+}
