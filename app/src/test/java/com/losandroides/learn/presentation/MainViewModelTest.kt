@@ -1,5 +1,6 @@
 package com.losandroides.learn.presentation
 
+import arrow.core.left
 import arrow.core.right
 import com.losandroides.learn.domain.ItemsUseCase
 import com.losandroides.learn.domain.model.Item
@@ -33,10 +34,12 @@ class MainViewModelTest {
             coEvery { itemsUseCase() } returns items.right()
 
             val viewModel = buildMainViewModel()
+
+            viewModel.viewState.value shouldBeEqualTo MainViewModel.ViewState.Loading
             runCurrent()
+            viewModel.viewState.value shouldBeEqualTo MainViewModel.ViewState.Content(items)
 
             coVerifyOnce { itemsUseCase() }
-            viewModel.viewState.value shouldBeEqualTo MainViewModel.ViewState.Content(items)
         }
 
     private fun buildMainViewModel() = MainViewModel(
