@@ -38,7 +38,7 @@ class ItemRepositoryTest {
     @Test
     @DisplayName("""
         GIVEN empty database
-        WHEN getITems
+        WHEN getItems
         THEN get items from remote
         AND save them locally
         AND return them
