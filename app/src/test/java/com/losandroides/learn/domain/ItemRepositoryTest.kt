@@ -13,10 +13,12 @@ import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
 @ExperimentalCoroutinesApi
+@DisplayName("ItemRepository Test")
 class ItemRepositoryTest {
 
     private val testDispatcher = StandardTestDispatcher()
@@ -25,7 +27,7 @@ class ItemRepositoryTest {
 
     private lateinit var subject: ItemRepository
 
-    @Before
+    @BeforeEach
     fun setUp() {
         subject = ItemRepository(
             localItemDatasource,
@@ -34,7 +36,14 @@ class ItemRepositoryTest {
     }
 
     @Test
-    fun `GIVEN empty database WHEN getItems THEN get items from remote, save them locally and return them`() {
+    @DisplayName("""
+        GIVEN empty database
+        WHEN getItems
+        THEN get items from remote
+        AND save them locally
+        AND return them
+    """)
+    fun test() {
         coEvery { localItemDatasource.isEmpty() } returns true
         coEvery { remoteItemDatasource.getItemsDTO() } returns buildItemsDTO().right()
 
@@ -50,7 +59,12 @@ class ItemRepositoryTest {
     }
 
     @Test
-    fun `GIVEN filled database WHEN getItems THEN return the local ones directly`() {
+    @DisplayName("""
+        GIVEN filled database
+        WHEN getItems
+        THEN return the local ones directly
+    """)
+    fun test2() {
         coEvery { localItemDatasource.isEmpty() } returns false
 
         runTest(testDispatcher) {

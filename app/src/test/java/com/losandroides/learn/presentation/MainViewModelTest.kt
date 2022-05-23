@@ -11,16 +11,23 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBeEqualTo
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.DisplayName
 
 @ExperimentalCoroutinesApi
+@DisplayName("MainViewModel test")
 class MainViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private val itemsUseCase = mockk<ItemsUseCase>()
 
     @Test
-    fun `GIVEN some items WHEN MainViewModel is initialized THEN ItemsUseCase is called`() =
+    @DisplayName("""
+        GIVEN some items
+        WHEN MainViewModel is initialized
+        THEN ItemsUseCase is called
+    """)
+    fun test() =
         runTest(testDispatcher) {
             val items = buildItems()
             coEvery { itemsUseCase() } returns items.right()

@@ -5,10 +5,12 @@ import com.losandroides.learn.framework.relaxedMockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 
 @ExperimentalCoroutinesApi
+@DisplayName("ItemsUseCase test")
 class ItemsUseCaseTest {
 
     private val testDispatcher = StandardTestDispatcher()
@@ -16,7 +18,7 @@ class ItemsUseCaseTest {
 
     private lateinit var useCase: ItemsUseCase
 
-    @Before
+    @BeforeEach
     fun setUp() {
         useCase = ItemsUseCase(
             itemRepository
@@ -24,7 +26,11 @@ class ItemsUseCaseTest {
     }
 
     @Test
-    fun `WHEN useCase is invoked THEN call repository`() {
+    @DisplayName("""
+        WHEN useCase is invoked
+        THEN call repository
+    """)
+    fun test() {
         runTest(testDispatcher) {
             useCase()
         }
