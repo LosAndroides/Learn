@@ -2,14 +2,14 @@
 
 JaCoCo is an open-source toolkit for measuring and reporting Java code coverage.
 
-Of course, it's compatible for Kotlin code too. THat is very important on **`Los Androides`**.
+Of course, it's compatible with Kotlin code too. That is very important on **`Los Androides`**.
 
 ## Resources used to implement this solution
 
 - https://medium.com/nerd-for-tech/setup-jacoco-code-coverage-with-your-multimodule-android-app-kotlin-a0f82573a1
 - https://thsaravana.github.io/blog/jacoco-single-coverage-for-multi-module/
 
-# Relevant information int the JaCoCo Coverage Report
+# Relevant information in the JaCoCo Coverage Report
 You can create a report in different formats:
 - xml: usually used to feed other tools because it's easier to analyze by tools.
 - csv: usually used to feed other tools because it's easier to analyze by tools.

@@ -143,7 +143,6 @@ subprojects {
         }
     }
 
-
     // We need to force this resolution strategy because the UnitTest and UI Tests are not working well
     // because some dependency is using a different version of JaCoCo
     configurations.all {
