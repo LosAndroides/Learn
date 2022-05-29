@@ -33,6 +33,7 @@ with the default value, and the `ViewState.Error` was not tested. Tested means t
 So you could decide to create new tests depending on this useful information.
 
 You can find more information here: 
+- https://www.eclemma.org/userdoc/annotations.html
 
 # JaCoCo in multi-module project
 
