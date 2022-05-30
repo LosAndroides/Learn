@@ -58,6 +58,10 @@ You can run the JaCoCo task to create the testing coverage report very easily. Y
 ./gradlew allDebugCoverage
 ```
 
+After running this task, you can find the report in both formats (XML and HTML) in this path:
+
+`rootProject/build/reports/jacoco/allDebugCoverage`
+
 # Using JaCoCo in Github (Pending task)
 
 We can run the JaCoCo task during the pipeline. And we can define a minimum coverage to accept the merge on the main branch, to avoid including
