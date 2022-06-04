@@ -8,6 +8,9 @@ Of course, it's compatible with Kotlin code too. That is very important on **`Lo
 
 - https://medium.com/nerd-for-tech/setup-jacoco-code-coverage-with-your-multimodule-android-app-kotlin-a0f82573a1
 - https://thsaravana.github.io/blog/jacoco-single-coverage-for-multi-module/
+- https://github.com/Madrapps/jacoco-report
+- https://github.com/actions/upload-artifact
+- 
 
 # Relevant information in the JaCoCo Coverage Report
 You can create a report in different formats:
@@ -15,7 +18,9 @@ You can create a report in different formats:
 - csv: usually used to feed other tools because it's easier to analyze by tools.
 - html: very useful to read the report.
 
-In the implemented solution we're creating the xml and html reports.
+In the implemented solution we're creating the *xml* and *html* reports. 
+The *xml* will be used to analyze the coverage and publish the percentage in the PR.
+The *html* is very useful to check it manually.
 
 ### HTML report
 You can see in the first screen the information grouped by package.
@@ -62,12 +67,21 @@ After running this task, you can find the report in both formats (XML and HTML) 
 
 `rootProject/build/reports/jacoco/allDebugCoverage`
 
-# Using JaCoCo in Github (Pending task)
+# Using JaCoCo in Github
 
-We can run the JaCoCo task during the pipeline. And we can define a minimum coverage to accept the merge on the main branch, to avoid including
-untested code.
+We are running the JaCoCo task during the pipeline. We can define a minimum coverage to accept the merge on the main branch, to avoid including
+untested code, but for now this feature is not enabled in this project.
 
-We can add this feature in another task for **`Los Androides`**.
+After creating the JaCoCo report, we're publishing the * html* report as an artifact in the GitHub PR. You can find the report in the details of 
+the PR in the Summary/Artifacts section, called `jacocoReport`.
+![Report, artifact screen](./images/jacoco_artifact.png)
 
-Reference plugin to use JaCoCo in Github:
-https://github.com/marketplace/actions/jacoco-report
+
+The next step in the PR is to add a comment in the PR with the coverage of the changes files and the global one. For this comment 
+we're defining a minimum for both values:
+- min-coverage-overall: 30 
+- min-coverage-changed-files: 50
+
+This minimum is only to have a visual status of the coverage, but the build will not be blocked if your values are under the minimum.
+
+![Report, artifact screen](./images/jacoco_badge.png)
