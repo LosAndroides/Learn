@@ -27,6 +27,24 @@ jobs:
 
     - name: Unit tests
       run: ./gradlew testDebugUnitTest
-      
+
+    - name: Create JaCoCo coverage report
+      run: ./gradlew allDebugCoverage
+
+    - name: Upload JaCoCo test report
+      uses: actions/upload-artifact@v3
+      with:
+        name: jacocoReport
+        path: build/reports/jacoco/allDebugCoverage/html
+
+    - name: Add coverage to PR
+      id: jacoco
+      uses: madrapps/jacoco-report@v1.2
+      with:
+        paths: ${{ github.workspace }}/build/reports/jacoco/allDebugCoverage/allDebugCoverage.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        min-coverage-overall: 30
+        min-coverage-changed-files: 50
+
     - name: Detekt validation
       run: ./gradlew detekt
