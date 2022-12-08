@@ -1,2 +1,2 @@
-# LosAndroides
-App de Los androides, la comunidad Android del crecimiento profesional.
+# LEARN
+App LEARN de Los androides, la comunidad Android del crecimiento profesional.
